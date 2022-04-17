@@ -3,8 +3,12 @@ const User = require("../models/User");
 
 router.post('/sign-in', async (req, res) => {
   try {
-    await User.create(req.body)
-    res.send({ msg: 'registration successfull' })
+    const user = await User.findOne({ mobile: req.params.mobile })
+    if(user){
+      res.send({ msg: 'Sign In Successful' })
+    } else{
+      throw("Not found")
+    }
   } catch (error) {
     res.send({ status: '500' })
   }
