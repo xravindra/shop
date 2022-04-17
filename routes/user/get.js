@@ -1,7 +1,8 @@
-const router = require(".");
-const User = require("../models/User");
+const express = require('express')
+const router = express.Router()
+const User = require("../../models/User");
 
-router.get('/profile', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const user = await User.findOne({ mobile: req.query.mobile })
     res.send(user)

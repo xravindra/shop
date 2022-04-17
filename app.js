@@ -22,11 +22,8 @@ app.engine('.hbs', exphbs.engine({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', '.hbs')
 
 app.use(express.static(path.join(__dirname, 'public')))
-app.use('/', require('./routes/index'))
-app.use('/test', require('./routes/test'))
-app.use('/profile', require('./routes/profile'))
-app.use('/sign-in', require('./routes/sign-in'))
-app.use('/sign-up', require('./routes/sign-up'))
+app.use('/user/get', require('./routes/user/get'))
+app.use('/user/set', require('./routes/user/set'))
 
 const PORT = process.env.PORT || 3000
 
