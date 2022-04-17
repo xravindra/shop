@@ -18,14 +18,16 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'))
 }
 
-
 app.engine('.hbs', exphbs.engine({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', '.hbs')
 
 app.use(express.static(path.join(__dirname, 'public')))
 app.use('/', require('./routes/index'))
-app.use('/stories', require('./routes/stories'))
+app.use('/test', require('./routes/test'))
 
 const PORT = process.env.PORT || 3000
 
-app.listen(PORT, console.log(`Server running in ${process.env.NODE_ENV} mode on port ${process.env.PORT}`))
+app.listen(
+  PORT,
+  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${process.env.PORT}`)
+);
