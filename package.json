@@ -4,18 +4,20 @@
   "description": "college project",
   "main": "app.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=production node app.js",
-    "dev": "cross-env NODE_ENV=development nodemon app.js"
+    "start": "cross-env NODE_ENV=production node server.js",
+    "dev": "cross-env NODE_ENV=development nodemon server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "connect-mongo": "^4.6.0",
     "cross-env": "^7.0.3",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "express-handlebars": "^6.0.4",
     "express-session": "^1.17.2",
+    "lodash-es": "^4.17.21",
     "method-override": "^3.0.0",
     "mongoose": "^6.2.10",
     "morgan": "^1.10.0",
