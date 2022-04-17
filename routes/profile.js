@@ -1,10 +1,10 @@
 const router = require(".");
 const User = require("../models/User");
 
-router.post('/sign-up', async (req, res) => {
+router.get('/profile', async (req, res) => {
   try {
-    await User.create(req.body)
-    res.send({ m: 'Sign Up Successful' })
+    const user = await User.findOne({ mobile: req.query.mobile })
+    res.send(user)
   } catch (error) { res.send(error) }
 })
 
