@@ -24,6 +24,8 @@ app.set('view engine', '.hbs')
 app.use(express.static(path.join(__dirname, 'public')))
 app.use('/', require('./routes/index'))
 app.use('/test', require('./routes/test'))
+app.use('/sign-in', require('./routes/sign-in'))
+app.use('/sign-up', require('./routes/sign-up'))
 
 const PORT = process.env.PORT || 3000
 
