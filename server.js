@@ -37,6 +37,8 @@ app.use(session({
 }))
 
 app.use(express.static(path.join(__dirname, 'public')))
+app.use('/', require('./routes/index'))
+app.use('/user/get', require('./routes/user/get'))
 app.use('/user/get', require('./routes/user/get'))
 app.use('/user/set', require('./routes/user/set'))
 
