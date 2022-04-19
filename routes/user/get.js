@@ -6,8 +6,8 @@ const User = require("../../models/User")
 
 router.post("/", async (req, res) => {
   try {
-    const { mobile, password } = req.body
-    const user = await User.findOne({ mobile })
+    const { email, password } = req.body
+    const user = await User.findOne({ email })
 
     if (user) {
       const receivedPassword = password || ''
