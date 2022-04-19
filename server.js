@@ -1,5 +1,6 @@
 const path = require('path')
 const express = require('express')
+var cors = require('cors')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')
 const dotenv = require('dotenv')
@@ -11,6 +12,7 @@ dotenv.config({ path: './config/config.env' })
 connectDB()
 
 const app = express()
+app.use(cors())
 
 app.use(session({
   secret: 'key that will sign cookie',
