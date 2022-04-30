@@ -3,7 +3,7 @@ const router = express.Router()
 
 router.get("/", (req, res) => {
   try {
-    req.send()
+    return res.send({ yaaay: 11 })
   } catch (error) { return res.send(error) }
 })
 

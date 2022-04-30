@@ -1,5 +1,6 @@
 const path = require('path')
 const express = require('express')
+const jwt = require('jsonwebtoken')
 var cors = require('cors')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')
@@ -40,13 +41,31 @@ app.use(session({
 
 app.use(express.static(path.join(__dirname, 'public')))
 app.use('/', require('./routes/index'))
-app.use('/user/get', require('./routes/user/get'))
+app.use('/posts', authenticateToken, require('./routes/posts'))
 app.use('/user/get', require('./routes/user/get'))
 app.use('/user/set', require('./routes/user/set'))
+// app.use('/user/del', require('./routes/user/del'))
 
 app.use('/auth/get', require('./routes/auth/get'))
 app.use('/auth/set', require('./routes/auth/set'))
 app.use('/auth/del', require('./routes/auth/del'))
+
+app.use('/product/get', require('./routes/product/get'))
+app.use('/product/set', require('./routes/product/set'))
+// app.use('/product/del', require('./routes/product/del'))
+
+
+function authenticateToken(req, res, next) {
+  const authHeader = req.headers['authorization']
+  const token = authHeader && authHeader.split(' ')[1]
+  if (token === null) return res.sendStatus(401)
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    if (err) return res.sendStatus(403)
+    req.user = user
+    next()
+  })
+}
 
 const PORT = process.env.PORT || 3000
 app.listen(

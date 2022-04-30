@@ -1,9 +1,13 @@
 const express = require("express")
 const router = express.Router()
+const Token = require("../../models/Token");
 
-router.post("/", async (req, res) => {
+// logout the user
+router.delete("/", async (req, res) => {
   try {
-    req.logout();
+    const token = req.body.token
+    await Token.deleteOne({ token })
+    return res.sendStatus(204)
   } catch (error) { return res.send(error) }
 })
 

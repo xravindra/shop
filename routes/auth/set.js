@@ -1,29 +1,27 @@
 const express = require("express")
-const bcrypt = require("bcryptjs")
+const jwt = require('jsonwebtoken')
+const generateAccessToken = require('../../helpers/generateAccessToken')
 const router = express.Router()
-const User = require("../../models/User");
+const Token = require("../../models/Token");
 
 router.post("/", async (req, res) => {
   try {
-    const { name, mobile, password } = req.body
-    const encryptedPassword = await bcrypt.hash(password, 12)
-    let user = await User.findOne({ mobile })
+    const token = req.body.token
+    if (token === null) res.sendStatus(401)
 
-    if (user) {
-      throw ({
-        error: true,
-        exists: true,
-      })
-    }
+    const foundToken = await Token.findOne({ token })
+    if (!foundToken) res.sendStatus(403)
 
-    user = new User({
-      name,
-      mobile,
-      password: encryptedPassword,
-    })
-
-    const response = await user.save()
-    return res.send(response)
+    jwt.verify(
+      token,
+      process.env.REFRESH_TOKEN_SECRET,
+      (err, user) => {
+        if (err) res.sendStatus(403)
+        const thisUser = { email: user.email }
+        const accessToken = generateAccessToken(thisUser)
+        return res.send({ accessToken })
+      }
+    )
   } catch (error) { return res.send(error) }
 })
 

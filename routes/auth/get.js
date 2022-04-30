@@ -1,13 +1,16 @@
 const express = require("express")
-const bcrypt = require("bcryptjs")
 const router = express.Router()
+const jwt = require('jsonwebtoken')
+const bcrypt = require("bcryptjs")
 const { get } = require("lodash")
+const generateAccessToken = require('../../helpers/generateAccessToken')
 const User = require("../../models/User")
+const Token = require("../../models/Token")
 
 router.post("/", async (req, res) => {
   try {
-    const { mobile, password } = req.body
-    const user = await User.findOne({ mobile })
+    const { email, password } = req.body
+    const user = await User.findOne({ email })
 
     if (user) {
       const receivedPassword = password || ''
@@ -15,7 +18,14 @@ router.post("/", async (req, res) => {
       const isMatch = await bcrypt.compare(receivedPassword, databasePassword)
 
       if (isMatch) {
-        return res.send(user)
+        const thisUser = { email: user.email }
+        const accessToken = generateAccessToken(thisUser)
+        const refreshToken = jwt.sign(thisUser, process.env.REFRESH_TOKEN_SECRET)
+
+        const token = new Token({ token: refreshToken })
+        await token.save()
+
+        return res.send({ accessToken, refreshToken })
       }
     }
 

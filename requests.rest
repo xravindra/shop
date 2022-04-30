@@ -1,0 +1,31 @@
+GET http://localhost:3000
+###
+
+GET http://localhost:3000/posts
+Authorization: Barer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJjMTY5ODhAZ21haWwuY29tIiwiaWF0IjoxNjUwMzgwNzAxLCJleHAiOjE2NTAzODA3MjZ9.Aed57gGHIBVKyQyhNcZ0EOBvjg_LPxJeXh5pypIWM5o
+###
+
+POST http://localhost:3000/auth/set
+Content-Type: application/json
+
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJjMTY5ODhAZ21haWwuY29tIiwiaWF0IjoxNjUwMzgwNzAxfQ.9cUmI-NVnlprklkMQ9puKbvS03h0hIW17RsznHLaGvI"
+}
+###
+
+DELETE http://localhost:3000/auth/del
+Content-Type: application/json
+
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJjMTY5ODhAZ21haWwuY29tIiwiaWF0IjoxNjUwMzgwNzAxfQ.9cUmI-NVnlprklkMQ9puKbvS03h0hIW17RsznHLaGvI"
+}
+
+###
+
+POST http://localhost:3000/user/get
+Content-Type: application/json
+
+{
+    "email": "rc16988@gmail.com",
+    "password": "1111111111"
+}
