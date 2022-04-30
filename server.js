@@ -55,6 +55,10 @@ app.use('/product/set', authenticateToken, require('./routes/product/set'))
 app.use('/product/get', authenticateToken, require('./routes/product/get'))
 app.use('/product/del', authenticateToken, require('./routes/product/del'))
 
+app.use('/cart/set', authenticateToken, require('./routes/cart/set'))
+app.use('/cart/get', authenticateToken, require('./routes/cart/get'))
+app.use('/cart/del', authenticateToken, require('./routes/cart/del'))
+
 function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization']
   const token = authHeader && authHeader.split(' ')[1]

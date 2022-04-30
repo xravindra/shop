@@ -25,7 +25,7 @@ router.post("/", async (req, res) => {
         const token = new Token({ token: refreshToken })
         await token.save()
 
-        return res.send({ accessToken, refreshToken, email })
+        return res.send({ accessToken, refreshToken, userId: user._id })
       }
     }
 

@@ -34,7 +34,7 @@ router.post("/", async (req, res) => {
 
     const response = await product.save()
     return res.send(response)
-  } catch (error) { console.log('xxxxxxxx',error); return res.send(error) }
+  } catch (error) { return res.send(error) }
 })
 
 module.exports = router
