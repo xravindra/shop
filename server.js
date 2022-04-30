@@ -47,13 +47,13 @@ app.use('/auth/get', require('./routes/auth/get'))
 app.use('/auth/set', require('./routes/auth/set'))
 app.use('/auth/del', require('./routes/auth/del'))
 
-app.use('/user/get', require('./routes/user/get'))
-app.use('/user/set', require('./routes/user/set'))
-app.use('/user/del', require('./routes/user/del'))
+app.use('/user/get', authenticateToken, require('./routes/user/get'))
+app.use('/user/set', authenticateToken, require('./routes/user/set'))
+app.use('/user/del', authenticateToken, require('./routes/user/del'))
 
-app.use('/product/get', require('./routes/product/get'))
-app.use('/product/set', require('./routes/product/set'))
-app.use('/product/del', require('./routes/product/del'))
+app.use('/product/get', authenticateToken, require('./routes/product/get'))
+app.use('/product/set', authenticateToken, require('./routes/product/set'))
+app.use('/product/del', authenticateToken, require('./routes/product/del'))
 
 
 function authenticateToken(req, res, next) {
