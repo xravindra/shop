@@ -22,10 +22,17 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:3000/user/get
+POST http://localhost:3000/auth/get
 Content-Type: application/json
 
 {
     "email": "rc16988@gmail.com",
     "password": "1111111111"
 }
+###
+
+GET http://localhost:3000/user/get
+Content-Type: application/json
+Authorization: Barer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJjMTY5ODhAZ21haWwuY29tIiwiaWF0IjoxNjUwMzgwNzAxLCJleHAiOjE2NTAzODA3MjZ9.Aed57gGHIBVKyQyhNcZ0EOBvjg_LPxJeXh5pypIWM5o
+###
+
