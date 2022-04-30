@@ -43,13 +43,13 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use('/', require('./routes/index'))
 app.use('/posts', authenticateToken, require('./routes/posts'))
 
-app.use('/auth/get', require('./routes/auth/get'))
-app.use('/auth/set', require('./routes/auth/set'))
-app.use('/auth/del', require('./routes/auth/del'))
+app.use('/auth/get', require('./routes/auth/get'))  // LOGIN generate accesstoken and refreshtoken
+app.use('/auth/set', require('./routes/auth/set'))  // RELOGIN renew accesstoken using refreshtoken
+app.use('/auth/del', require('./routes/auth/del'))  // LOGOUT or delete the accesstoken
 
-app.use('/user/get', authenticateToken, require('./routes/user/get'))
-app.use('/user/set', authenticateToken, require('./routes/user/set'))
-app.use('/user/del', authenticateToken, require('./routes/user/del'))
+app.use('/user/get', authenticateToken, require('./routes/user/get')) // PROFILE get all users or user by email-id
+app.use('/user/set', require('./routes/user/set')) // REGISTER add new user
+app.use('/user/del', authenticateToken, require('./routes/user/del')) // DELETE delete the user
 
 app.use('/product/get', authenticateToken, require('./routes/product/get'))
 app.use('/product/set', authenticateToken, require('./routes/product/set'))
