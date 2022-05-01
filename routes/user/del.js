@@ -1,12 +1,11 @@
 const express = require("express")
 const router = express.Router()
-const Token = require("../../models/Token");
+const User = require("../../models/User");
 
-// logout the user
 router.delete("/", async (req, res) => {
   try {
-    const token = req.body.token
-    await Token.deleteOne({ token })
+    const { userId } = req.body
+    await User.deleteOne({ _id: userId })
     return res.sendStatus(204)
   } catch (error) { return res.send(error) }
 })
