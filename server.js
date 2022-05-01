@@ -58,9 +58,17 @@ app.use('/cart/set', authenticateToken, require('./routes/cart/set'))
 app.use('/cart/get', authenticateToken, require('./routes/cart/get'))
 app.use('/cart/del', authenticateToken, require('./routes/cart/del'))
 
+app.use('/order/set', authenticateToken, require('./routes/order/set'))
+app.use('/order/get', authenticateToken, require('./routes/order/get'))
+app.use('/order/del', authenticateToken, require('./routes/order/del'))
+
 app.use('/posts', authenticateToken, require('./routes/posts')) // testing api
 
 function authenticateToken(req, res, next) {
+  next()
+}
+
+function authenticateToken1(req, res, next) {
   const authHeader = req.headers['authorization']
   const token = authHeader && authHeader.split(' ')[1]
   if (token === null) return res.sendStatus(401)
