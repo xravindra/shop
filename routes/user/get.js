@@ -4,8 +4,8 @@ const User = require("../../models/User")
 
 router.get("/", async (req, res) => {
   try {
-    const { email } = req.query
-    const users = await User.find(email ? { email } : {})
+    const { userId } = req.query
+    const users = await User.find(userId ? { _id: userId } : {})
 
     if (users) {
       return res.send(users)
