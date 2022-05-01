@@ -5,7 +5,7 @@ const Cart = require("../../models/Cart")
 router.get("/", async (req, res) => {
   try {
     const userId = req.query.userId
-    const cart = await Cart.find({ userId })
+    const cart = await Cart.find(userId ? { userId } : {})
 
     if (cart) {
       return res.send(cart)

@@ -41,7 +41,6 @@ app.use(session({
 
 app.use(express.static(path.join(__dirname, 'public')))
 app.use('/', require('./routes/index'))
-app.use('/posts', authenticateToken, require('./routes/posts'))
 
 app.use('/auth/set', require('./routes/auth/set'))  // RELOGIN renew accesstoken using refreshtoken
 app.use('/auth/get', require('./routes/auth/get'))  // LOGIN generate accesstoken and refreshtoken
@@ -58,6 +57,8 @@ app.use('/product/del', authenticateToken, require('./routes/product/del'))
 app.use('/cart/set', authenticateToken, require('./routes/cart/set'))
 app.use('/cart/get', authenticateToken, require('./routes/cart/get'))
 app.use('/cart/del', authenticateToken, require('./routes/cart/del'))
+
+app.use('/posts', authenticateToken, require('./routes/posts')) // testing api
 
 function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization']
