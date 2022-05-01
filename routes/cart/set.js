@@ -9,7 +9,12 @@ router.post("/", async (req, res) => {
       productId,
     } = req.body
 
-    let cart = await Cart.findOne({ userId, productId })
+    const body = {
+      user: userId,
+      product: productId,
+    }
+
+    let cart = await Cart.findOne(body)
 
     if (cart) {
       throw ({
@@ -18,10 +23,7 @@ router.post("/", async (req, res) => {
       })
     }
 
-    cart = new Cart({
-      userId,
-      productId,
-    })
+    cart = new Cart(body)
 
     const response = await cart.save()
     return res.send(response)
