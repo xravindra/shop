@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
         id: o._id,
         date: o.createdAt,
         products: o.product,
-        total: o.product.reduce((sum, prod) => { return sum + prod.price }, 0)
+        total: o.product.reduce((sum, prod) => sum + prod.price, 0)
       })))
     }
 
