@@ -7,7 +7,7 @@ router.get("/", async (req, res) => {
     const userId = req.query.userId
     const cart = await Cart
       .find(userId ? { user: userId } : {})
-      .populate('product')
+      .populate('product', 'title price description')
 
     if (cart) {
       return res.send(cart.map(c => c.product))

@@ -8,12 +8,12 @@ const OrderSchema = new mongoose.Schema({
     trim: true,
     required: true,
   },
-  product: {
+  product: [{
     type: Schema.Types.ObjectId,
     ref: 'Product',
     trim: true,
     required: true,
-  },
+  }],
 }, {
   timestamps: true
 })

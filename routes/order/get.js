@@ -8,10 +8,15 @@ router.get("/", async (req, res) => {
     const order = await Order
       .find(userId ? { user: userId } : {})
       .sort({ createdAt: -1 })
-      .populate('product')
+      .populate('product', 'title price description')
 
     if (order) {
-      return res.send(order.map(o => o.product))
+      return res.send(order.map(o => ({
+        id: o._id,
+        date: o.createdAt,
+        products: o.product,
+        total: o.product.reduce((sum, prod) => { return sum + prod.price }, 0)
+      })))
     }
 
     throw ({
