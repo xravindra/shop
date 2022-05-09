@@ -14,7 +14,7 @@ router.post("/", async (req, res) => {
     if (cart) {
       order = new Order({ user: userId, product: cart.map(c => c.product._id) })
       await order.save()
-      await Cart.delete({ user: userId })
+      await Cart.deleteMany({ user: userId })
       return res.sendStatus(204)
     }
 
