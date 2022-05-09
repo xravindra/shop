@@ -1,34 +1,27 @@
 const express = require("express")
 const router = express.Router()
+const Cart = require("../../models/Cart");
 const Order = require("../../models/Order");
 
 router.post("/", async (req, res) => {
   try {
-    const {
-      userId,
-      productId,
-    } = req.body
+    const { userId } = req.body
 
-    const body = {
-      user: userId,
-      product: productId,
+    const cart = await Cart
+      .find(userId ? { user: userId } : {})
+      .populate('product', '')
+
+    if (cart) {
+      order = new Order({ user: userId, product: cart.map(c => c.product._id) })
+      await order.save()
+      await Cart.delete({ user: userId })
+      return res.sendStatus(204)
     }
 
-    let order = await Order.findOne(body)
-
-    if (order) {
-      throw ({
-        error: true,
-        exists: true,
-      })
-    }
-
-    order = new Order(body)
-
-    const response = await order.save()
-    await Cart.delete({ user: userId })
-
-    return res.send(response)
+    throw ({
+      error: true,
+      exists: true,
+    })
   } catch (error) { return res.send(error) }
 })
 
