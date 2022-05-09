@@ -26,6 +26,8 @@ router.post("/", async (req, res) => {
     order = new Order(body)
 
     const response = await order.save()
+    await Cart.delete({ user: userId })
+
     return res.send(response)
   } catch (error) { return res.send(error) }
 })
